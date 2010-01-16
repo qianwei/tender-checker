@@ -7,5 +7,5 @@
      "default_title": "GitHub Support",
      "default_icon": "icon_128.png"
   },
-  "permissions": [ "https://api.tenderapp.com/github/*" ]
+  "permissions": [ "tabs", "https://api.tenderapp.com/github/*" ]
 }
