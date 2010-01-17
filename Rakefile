@@ -36,7 +36,11 @@ desc "Update the version number and create a tag"
 task :tag, [:version] do |t, args|
   new_file = File.read("src/manifest.json").gsub(/"version": ".+",/, %Q|"version": "#{args.version}",|)
   File.open("src/manifest.json", "w") {|f| f << new_file}
-  `git commit -m "Updating version number" -- src/manifest.json`
+
+  new_file = File.read("updates.xml").gsub(/version='.+'/, "version='#{args.version}'").gsub(/tender-checker-.+\.crx/, "tender-checker-#{args.version}.crx")
+  File.open("updates.xml", "w") {|f| f << new_file}
+
+  `git commit -m "Updating version number" -- src/manifest.json updates.xml`
   `git tag -a -m "Build #{args.version}" v#{args.version}`
 end
 
