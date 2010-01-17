@@ -1,5 +1,5 @@
 
-function set_err(new_value) {
+function set_error(new_value) {
   localStorage.lastError = new_value
   if (new_value != "") {chrome.browserAction.setBadgeText({text: "ERR"})}
   $.each(chrome.extension.getViews(), function (i, view) {
@@ -18,7 +18,7 @@ function updatebadge() {
 
     $.getJSON("https://api.tenderapp.com/" + localStorage.subdomain + "/discussions/pending", function(data){
       chrome.browserAction.setBadgeText({text: ""+data["total"]})
-      set_err("")
+      set_error("")
     })
   }
 }
@@ -46,7 +46,7 @@ function inbox() {
 $(function() {
   $("body").ajaxError(function(event, request, settings) {
     console.log(event, request, settings)
-    set_err(request.statusText + "  " + request.responseText)
+    set_error(request.statusText + "  " + request.responseText)
   });
 
   setInterval(updatebadge,"60000");

@@ -2,7 +2,7 @@
 function set_error() {
   var val = localStorage.lastError
   if (val && val != "") {$("#error").text(val)}
-  else {$("#error").text("No errors")}
+  else {$("#error").text("---")}
 }
 
 $(function() {
