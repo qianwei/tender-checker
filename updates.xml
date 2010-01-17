@@ -1,6 +1,6 @@
-<?xml version='0.3'?>
+<?xml version='0.4'?>
 <gupdate xmlns='http://www.google.com/update2/response' protocol='2.0'>
   <app appid='lgghedmeeoajicabhbeioeffkgcnjegn'>
-    <updatecheck codebase='http://cloud.github.com/downloads/tekkub/tender-checker/tender-checker-0.3.crx' version='0.3' />
+    <updatecheck codebase='http://cloud.github.com/downloads/tekkub/tender-checker/tender-checker-0.4.crx' version='0.4' />
   </app>
 </gupdate>

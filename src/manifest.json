@@ -1,6 +1,6 @@
 {
   "name": "Tender Checker",
-  "version": "0.3",
+  "version": "0.4",
   "description": "Adds onena dem fancy buttons with all dem numbers and stuff",
   "background_page": "background.html",
   "options_page": "options.html",
