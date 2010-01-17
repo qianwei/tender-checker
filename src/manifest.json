@@ -1,10 +1,11 @@
 {
   "name": "Tender Checker",
-  "version": "0.4",
+  "version": "0.5",
   "description": "Adds onena dem fancy buttons with all dem numbers and stuff",
   "background_page": "background.html",
   "options_page": "options.html",
   "browser_action": {
+     // "default_title": "GitHub Support",
      "default_icon": "icon_small.png"
   },
   "icons": {"128": "icon_128.png"},
