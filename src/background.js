@@ -5,17 +5,25 @@ function set_error(new_value) {
   $.each(chrome.extension.getViews(), function (i, view) {
     if (view.location.pathname == "/options.html") {view.set_error(new_value)}
   })
+  return false
 }
 
-function updatebadge() {
-  if (!localStorage.subdomain || localStorage.subdomain == "") {set_error("Subdomain not set")}
-  else if (!localStorage.apikey || localStorage.apikey == "") {set_error("API key not set")}
+
+function validate_settings() {
+  if (!localStorage.subdomain || localStorage.subdomain == "") {return set_error("Subdomain not set")}
+  else if (!localStorage.apikey || localStorage.apikey == "") {return set_error("API key not set")}
   else {
     $.ajaxSetup({"beforeSend": function(xhr) {
       xhr.setRequestHeader("Accept", "application/vnd.tender-v1+json")
       xhr.setRequestHeader("X-Tender-Auth", localStorage.apikey)
     }});
+    return true
+  }
+}
 
+
+function updatebadge() {
+  if (validate_settings()) {
     $.getJSON("https://api.tenderapp.com/" + localStorage.subdomain + "/discussions/pending", function(data){
       chrome.browserAction.setBadgeText({text: ""+data["total"]})
       set_error("")
@@ -24,6 +32,13 @@ function updatebadge() {
 }
 
 
+function firstupdate() {
+  if (validate_settings()) {
+    $.getJSON("https://api.tenderapp.com/" + localStorage.subdomain + "/", function(data){localStorage.fulldomain = data["html_href"]})
+    updatebadge()
+  }
+}
+
 function inbox() {
   if (localStorage.lastError) {
     chrome.tabs.create({url: "options.html"})
@@ -31,13 +46,13 @@ function inbox() {
     chrome.tabs.getAllInWindow(undefined, function(tabs) {
       var found = false
       $.each(tabs, function (i, tab) {
-        if (tab.url && (/\/\/support\.github\.com\//).test(tab.url)) {
+        if (tab.url && (new RegExp(localStorage.fulldomain)).test(tab.url)) {
           chrome.tabs.update(tab.id, {selected: true});
           found = true;
           return false;
         }
       })
-      if (!found) {chrome.tabs.create({url: "http://support.github.com/"})}
+      if (!found) {chrome.tabs.create({url: localStorage.fulldomain + "/dashboard"})}
     });
   }
 }
@@ -50,7 +65,7 @@ $(function() {
   });
 
   setInterval(updatebadge,"60000");
-  updatebadge();
+  firstupdate();
 
   chrome.browserAction.onClicked.addListener(function(tab) {inbox()});
 });
