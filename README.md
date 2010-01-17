@@ -4,4 +4,4 @@ Simple little Chrome extension, adds a browser action for [Tender](http://tender
 Installing
 ----------
 
-Go to the [download section](http://github.com/tekkub/tender-notifier/downloads), download, install, set your domain and API key, rejoice.
+Go to the [download section](http://github.com/tekkub/tender-checker/downloads), download, install, set your domain and API key, rejoice.
