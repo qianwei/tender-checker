@@ -5,7 +5,7 @@ require 'crxmake'
 
 desc "Finds your last tag"
 task :default do
-  last_tag = `git describe 2>/dev/null`
+  last_tag = `git describe --abbrev=0 2>/dev/null`
   puts (last_tag.empty? ? "Cannot find last tag" : "Last tag: #{last_tag}")
 end
 
