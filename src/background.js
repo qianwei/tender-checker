@@ -59,6 +59,8 @@ function inbox() {
 
 
 $(function() {
+  chrome.browserAction.setBadgeBackgroundColor({color: [0, 0, 192, 255]})
+
   $("body").ajaxError(function(event, request, settings) {
     console.log(event, request, settings)
     set_error(request.statusText + "  " + request.responseText)
