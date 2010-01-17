@@ -6,7 +6,8 @@
   "options_page": "options.html",
   "browser_action": {
      "default_title": "GitHub Support",
-     "default_icon": "icon_128.png"
+     "default_icon": "icon_small.png"
   },
+  "icons": {"128": "icon_128.png"},
   "permissions": [ "tabs", "https://api.tenderapp.com/*" ]
 }
