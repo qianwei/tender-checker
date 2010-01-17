@@ -12,23 +12,18 @@ end
 
 desc "Build a .crx file that Chrome can load"
 task :build, [:version] do |t, args|
-  args.with_defaults(:version => "Alpha")
+  args.with_defaults(:version => "alpha")
 
-  unless File.exists?("key.pem")
-    CrxMake.make(
-      :ex_dir => "./src",
-      :pkey_output => "./key.pem",
-      :crx_output => "./#{myname}-#{args.version}.crx",
-      :verbose => true
-    )
-  else
-    CrxMake.make(
-      :ex_dir => "./src",
-      :pkey => "./key.pem",
-      :crx_output => "./#{myname}-#{args.version}.crx",
-      :verbose => true
-    )
-  end
+  raise "#{myname}-#{args.version}.crx already exists" if File.exists?("#{myname}-#{args.version}.crx")
+
+  `openssl des3 -d -salt -in key.pem.des3 -out key.pem` if File.exists?("key.pem.des3") && !File.exists?("key.pem")
+
+  CrxMake.make(
+    :ex_dir => "./src",
+    (File.exists?("key.pem") ? :pkey : :pkey_output) => "./key.pem",
+    :crx_output => "./#{myname}-#{args.version}.crx",
+    :verbose => true
+  )
 end
 
 
