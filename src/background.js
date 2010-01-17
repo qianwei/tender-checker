@@ -1,7 +1,10 @@
 
 function set_error(new_value) {
   localStorage.lastError = new_value
-  if (new_value != "") {chrome.browserAction.setBadgeText({text: "ERR"})}
+  if (new_value != "") {
+    chrome.browserAction.setBadgeText({text: "ERR"})
+    chrome.browserAction.setTitle({title: "Error: " + new_value})
+  }
   $.each(chrome.extension.getViews(), function (i, view) {
     if (view.location.pathname == "/options.html") {view.set_error(new_value)}
   })
@@ -25,6 +28,7 @@ function validate_settings() {
 function updatebadge() {
   if (validate_settings()) {
     $.getJSON("https://api.tenderapp.com/" + localStorage.subdomain + "/discussions/pending", function(data){
+      chrome.browserAction.setTitle({title: data["total"] + " messages"})
       chrome.browserAction.setBadgeText({text: ""+data["total"]})
       set_error("")
     })
