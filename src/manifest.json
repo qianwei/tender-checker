@@ -3,6 +3,7 @@
   "version": "0.1",
   "description": "Adds onena dem fancy buttons with all dem numbers and stuff",
   "background_page": "background.html",
+  "options_page": "options.html",
   "browser_action": {
      "default_title": "GitHub Support",
      "default_icon": "icon_128.png"
